@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "com.logtarget.parselambda.SimpleStorageEventProcessor"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+dependencies {
+
+    compile(project(":logtarget-common"))
+
+    // https://mvnrepository.com/artifact/com.amazonaws/aws-lambda-java-core
+    compile group: 'com.amazonaws', name: 'aws-lambda-java-core', version: aws_lambda_java_core
+
+
+    // https://mvnrepository.com/artifact/com.amazonaws/aws-lambda-java-events
+    compile group: 'com.amazonaws', name: 'aws-lambda-java-events', version: aws_lambda_java_events
+
+    // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: aws_java_sdk_s3
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jackson_databind_version
+
+
+    testCompile group: 'junit', name: 'junit', version: junit_version
+
+}
