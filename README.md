@@ -4,13 +4,16 @@ A demo log file sink.
 
 ## Components
 *logtarget-common* - classes used across modules
-*logtarget-parse-lambda* - lambda triggered by files written to s3 which generates a log summary 
+
+*logtarget-parse-lambda* - lambda triggered by files written to s3 which generates a log summary
+ 
 *logtarget-webapp* - Spring Boot Web Application which persists and retrieves log files 
 
 
 ##Usage
 *logtarget-parse-lambda* is deployed to AWS and will trigger when appropriately named files are
-written to the s3 bucket *raw-log-target*
+written to the s3 bucket *raw-log-target* (the same summary will be generated irrespective of the
+contents of the logfile)
 
 *logtarget-webapp* can be started locally using the bootrun target from an IDE,
 or by calling **./gradlew logtarget-webapp:bootrun** from the command line
@@ -22,6 +25,7 @@ Locally logtarget can by accessed at the following endpoints:
 *PUT http://localhost:8080/logtarget/upload*
 
 The request body will be persisted
+
 'Content-Type' defaults to 'text/plain' unless otherwise specified
 'Content-Length' is required
 
